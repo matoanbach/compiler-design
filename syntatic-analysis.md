@@ -137,3 +137,40 @@ R = {
 - There might be sets of rules of the form: A -> alphaBeta1 | alphaBeta2 | alphaBeta3 | ...
 - This would imply that the parser needs to make a choice between different right-hand sides that begin with the same symbol, which is not acceptable
 - They can be eliminated using a factorization technique.
+
+## Backtracking
+- Backtracking is tricky and inefficient to implement
+- In many cases, this eventually leads to a situation where most of the parsing time is spent on moves forward that are eventually backtracked
+- Parsing with backtracking is seldom used
+- The most simple solution is to eliminate the ambiguities from the grammar
+- Some more elaborated solutions have been recently found that optimize backtracking that use a caching technique to reduce the number of generated sub-trees.
+
+## Predictive parsing techniques
+- Restriction: the parser must always be able to determine which of the right-hand sides to follow, only with its knowledge of the next token in input
+- This essentially means top-down parsing without backtracking
+- It is a form of deterministic parsing
+- The assumption is that no backtracking is allowed/possible/neccessary
+
+## Recursive descent predictive parser
+- An implementation function is defined for each non-terminal symbol
+- Its predictive nature allows it to always choose the correct right-hand-side
+- The choice of right-hand side is coded in the function using if statements whose conditions use the FIRST and FOLLOW sets
+- Each function choose the appropriate right-hand side and
+    - matches terminal symbols with the consumed tokens
+    - calls other functions to recognize other non-terminal symbols
+- The parse tree is actually constructed by the nesting of the function calls, potentially recursively - hence the name of the technique
+- Characteristics:
+    - Easy to implement
+    - Easy to trace/debug
+    - Hard-coded: allows to handle unusual situations
+    - Hard to maintain
+    - Changes in the grammaer imply changes in the code
+
+## Table-driven predictive parser
+- A parsing table tells the parser which right-hand-side to choose
+- The parsing algorithm is standard to all parsers
+- Characteristics:
+    - Easier to maintain: only the table changes when the language changes, the algorithm is universal.
+    - Tracing/debugging is harder, as it is more abstract
+    - If done manually, the process of building the parsing table is hard and error-prone for most languages
+    - Tools can be used to generate the parsing table
