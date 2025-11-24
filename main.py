@@ -45,5 +45,5 @@ def infixToPostfix(s):
     return res 
 
 if __name__ == '__main__':
-    exp = "((15/(7-(1+1)))*3)-(2+(1+1))"
+    exp = "((H*((((A+((B+C)*D))*F)*G)*E))+J)"
     print(infixToPostfix(exp))
